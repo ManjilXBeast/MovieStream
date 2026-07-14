@@ -24,10 +24,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
       minlength: 8,
-      maxlength: 15,
     },
 
     avatar: {
+      type: String,
       default: null,
     },
   },
