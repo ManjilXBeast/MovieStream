@@ -1,8 +1,29 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { apiRequest } from "../services/api";
+import { AuthContext } from "../context/AuthContext";
 
 const SignIn = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { updateUser } = useContext(AuthContext);
+
   const [showPassword, setShowPassword] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+    try {
+      const response = await apiRequest.post("/auth/login", {
+        username,
+        password,
+      });
+      updateUser(response.data);
+    } catch (error) {}
+  };
 
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
