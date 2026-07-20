@@ -22,7 +22,13 @@ const SignIn = () => {
         password,
       });
       updateUser(response.data);
-    } catch (error) {}
+      navigate("/");
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong");
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -35,15 +41,24 @@ const SignIn = () => {
           <p className="text-gray-400 mt-2">Sign in to continue watching</p>
         </div>
 
+        {error && (
+          <div className="bg-red-600 text-white p-3 rounded-lg mb-4 text-center">
+            {error}
+          </div>
+        )}
+
         {/* Form */}
-        <form className="space-y-5">
-          {/* Email */}
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          {/* Username */}
           <div>
-            <label className="block text-gray-300 mb-2">Email</label>
+            <label className="block text-gray-300 mb-2">Username</label>
 
             <input
-              type="email"
-              placeholder="Enter your email"
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your username"
               className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
@@ -55,6 +70,9 @@ const SignIn = () => {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 pr-16 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
               />
@@ -87,9 +105,12 @@ const SignIn = () => {
           {/* Sign In Button */}
           <button
             type="submit"
-            className="w-full bg-red-600 hover:bg-red-700 transition duration-300 py-3 rounded-lg font-semibold text-white"
+            disabled={isLoading}
+            className={`w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition ${
+              isLoading ? "opacity-70 cursor-not-allowed" : ""
+            }`}
           >
-            Sign In
+            {isLoading ? "Logging In.." : "Sign In"}
           </button>
         </form>
 
