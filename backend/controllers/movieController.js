@@ -1,11 +1,16 @@
-import Movies from "../models/Movies";
+import Movies from "../models/Movies.js";
 
 //Postmovie
 export const PostMovie = async (req, res) => {
   try {
     const Movie = await Movies.create(req.body);
-    res.status(201).json({ messae: "MOvie Added Successfully", data: Movies });
-  } catch (error) {}
+    res.status(201).json({ message: "MOvie Added Successfully", data: Movies });
+  } catch (error) {
+    {
+      res.status(500).json({ message: "Internal Server Error" });
+      console.error("Error while adding movie:", error);
+    }
+  }
 };
 
 // //post movie
