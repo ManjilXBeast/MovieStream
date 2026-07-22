@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiRequest } from "../services/api";
 import { AuthContext } from "../context/AuthContext";
@@ -21,7 +21,7 @@ const SignIn = () => {
         username,
         password,
       });
-      updateUser(response.data);
+      updateUser(response.data.data);
       navigate("/");
     } catch (error) {
       setError(error.response?.data?.message || "Something went wrong");

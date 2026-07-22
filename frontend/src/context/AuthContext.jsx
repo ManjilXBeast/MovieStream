@@ -1,5 +1,6 @@
-import { createContext } from "react";
+import { createContext, useCallback } from "react";
 import { useEffect, useState } from "react";
+import { apiRequest } from "../services/api";
 
 export const AuthContext = createContext(null);
 
@@ -15,10 +16,17 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   // logout function
-  const logout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem("user");
-  };
+  const logout = useCallback(async () => {
+    try {
+      await apiRequest.post("/auth/logout");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      setCurrentUser(null);
+      localStorage.removeItem("user");
+      sessionStorage.clear();
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));

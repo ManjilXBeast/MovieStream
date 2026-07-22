@@ -1,7 +1,12 @@
-import React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import defaultAvatar from "../assets/image.webp";
 
 const Header = () => {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+
   return (
     <nav className="flex items-center justify-between px-10 py-5 bg-black/70 backdrop-blur-md sticky top-0 z-50">
       {/* Logo */}
@@ -40,22 +45,33 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* Login/Register Buttons */}
-      <div className="flex items-center gap-4">
-        <Link
-          to="/login"
-          className="px-5 py-2 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition duration-300"
-        >
-          Login
-        </Link>
-
-        <Link
-          to="/register"
-          className="px-5 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition duration-300 shadow-lg shadow-red-600/30"
-        >
-          Register
-        </Link>
-      </div>
+      {currentUser ? (
+        <div className="flex items-center">
+          <img
+            src={currentUser.avatar || defaultAvatar}
+            alt={`${currentUser.username}'s profile`}
+            className="w-8 h-8 rounded-full object-cover"
+          />
+          <Link to="/profile" className="ml-2 hover:text-red-500 font-medium">
+            {currentUser.username}
+          </Link>
+        </div>
+      ) : (
+        <div className="flex items-center gap-4">
+          <Link
+            to="/login"
+            className="px-5 py-2 border border-red-500 text-red-500 rounded-full hover:bg-red-500 hover:text-white transition duration-300"
+          >
+            Login
+          </Link>
+          <Link
+            to="/register"
+            className="px-5 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition duration-300 shadow-lg shadow-red-600/30"
+          >
+            Register
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };

@@ -5,6 +5,7 @@ import Movies from "./pages/Movies";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Layout from "./components/Layout";
+import Profile from "./components/Profile";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
 
       <Route path="/login" element={<SignIn />} />
       <Route path="/register" element={<SignUp />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 };
