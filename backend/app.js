@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import movieRoute from "./routes/movieRoute.js";
 import authRoute from "./routes/authRoute.js";
 import cors from "cors";
+import userRoute from "./routes/userRoute.js";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use(
 
 app.use("/api/movie", movieRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/user", userRoute);
 
 mongoose
   .connect(process.env.MONGO_URI)

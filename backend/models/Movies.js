@@ -62,7 +62,7 @@ const MovieSchema = new Schema(
     },
 
     trailerUrl: {
-      type: URL,
+      type: String,
       required: true,
       unique: true,
     },
