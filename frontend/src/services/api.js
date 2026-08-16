@@ -69,6 +69,6 @@ export const getMovieDetails = async (movieId) => {
 };
 
 export const apiRequest = axios.create({
-  baseURL: "http://localhost:4000/api",
+  baseURL: "https://moviestreambackend-ila5.onrender.com/api",
   withCredentials: true,
 });
