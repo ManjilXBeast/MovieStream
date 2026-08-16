@@ -1,5 +1,4 @@
-import React from "react";
-import { Play, Search, Bell, Star, Plus, ChevronRight } from "lucide-react";
+import { Play, Star, Plus, ChevronRight } from "lucide-react";
 
 const movies = [
   {
