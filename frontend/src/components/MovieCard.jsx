@@ -1,4 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 const MovieCard = ({ title, movies }) => {
+  const navigate = useNavigate();
+
+  const handleMovieClick = (movieId) => {
+    navigate(`/movies/${movieId}`);
+  };
   return (
     <div className="px-6 py-8 bg-black text-white">
       {/* Section Title */}
@@ -10,6 +17,7 @@ const MovieCard = ({ title, movies }) => {
           <div
             key={movie.id}
             className="bg-zinc-900 rounded-xl overflow-hidden shadow-lg hover:shadow-red-500/30 transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 cursor-pointer"
+            onClick={() => handleMovieClick(movie.id)}
           >
             {/* Poster */}
             <div className="overflow-hidden">
